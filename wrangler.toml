@@ -1,0 +1,14 @@
+name = "proppilot"
+compatibility_date = "2026-05-01"
+
+# Custom domain — requires the "shafu.xyz" zone to be on this Cloudflare
+# account. Wrangler will create the DNS record and TLS cert on first deploy.
+# If you don't own the zone yet, comment this block out and use the default
+# *.workers.dev URL.
+routes = [
+  { pattern = "proppilot.shafu.xyz", custom_domain = true }
+]
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"

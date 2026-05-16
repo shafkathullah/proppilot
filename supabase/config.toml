@@ -1,0 +1,7 @@
+# Minimal config for `supabase db push` against a linked remote project.
+# Full reference: https://supabase.com/docs/guides/cli/config
+
+project_id = "proppilot"
+
+[db]
+major_version = 17
