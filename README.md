@@ -2,6 +2,7 @@
 
 Mini realtime inbox for a real-estate agency. Public form at `/c/:agencySlug`, agent dashboard at `/inbox`, multi-tenant isolation via Supabase RLS.
 
+**Repo:** https://github.com/shafkathullah/proppilot
 **Deployed:** https://proppilot.shafu.xyz
 
 **Demo accounts** (different agencies — verify isolation by logging into each):
