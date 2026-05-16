@@ -65,15 +65,17 @@ create policy "agents read self"
   using (user_id = auth.uid());
 
 -- ---- contacts ----
--- Anon can submit a contact, with status='new' only. The FK to agencies
--- already enforces that the agency exists, so no need to re-check in the
--- policy (and an EXISTS subquery on another RLS-protected table inside a
--- WITH CHECK clause was failing in practice — likely a policy-context quirk).
-drop policy if exists "anon can submit contact" on public.contacts;
-create policy "anon can submit contact"
+-- The public form accepts submissions from anyone, with status='new'. We
+-- allow both `anon` and `authenticated` because the single supabase-js
+-- client in the SPA carries the agent's session if they're signed in —
+-- with `to anon` only, an agent's "Send another" tab would silently be
+-- denied. The FK on agency_id already enforces that the agency exists.
+drop policy if exists "anon can submit contact"   on public.contacts;
+drop policy if exists "anyone can submit contact" on public.contacts;
+create policy "anyone can submit contact"
   on public.contacts
   for insert
-  to anon
+  to anon, authenticated
   with check (status = 'new');
 
 -- Authenticated agents can read only contacts belonging to their agency.
