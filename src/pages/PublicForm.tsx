@@ -19,9 +19,7 @@ export function PublicForm() {
     let cancelled = false
     setLookup('loading')
     supabase
-      .from('agencies')
-      .select('id, slug, name')
-      .eq('slug', agencySlug)
+      .rpc('agency_by_slug', { p_slug: agencySlug })
       .maybeSingle()
       .then(({ data, error }) => {
         if (cancelled) return
